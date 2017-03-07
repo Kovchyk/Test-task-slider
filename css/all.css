@@ -94,8 +94,7 @@ a:hover {text-decoration: underline;}
 	height: 100px;
 }
 .switcher-wrapper {
-	margin: 0 auto;
-	width: 35%;
+	margin-left: 35%;
 }
 .switcher {
 	padding: 11px 0;
