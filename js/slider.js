@@ -16,7 +16,9 @@ var slider = (function() {
 		   var slideHeight = $(".info li").height();
 		       var isReady = false;
 	var switcherBackground = $(".switcher-background");
-
+	var switcherTotalWidth = calculateTotaSwitchlWidth( $(".switcher li") );
+		
+		$(".switcher-wrapper").width(switcherTotalWidth);
 		switcherBackground.outerHeight( current.outerHeight() );
 		switcherBackground.outerWidth( current.outerWidth() );
 
@@ -87,6 +89,20 @@ var slider = (function() {
 				}
 
 			});
+
+		}
+
+		function calculateTotaSwitchlWidth(arr) {
+
+			var totalWidth = 0;
+
+			$.each(arr, function(i, elem) {
+
+				totalWidth += $(elem).outerWidth(true);
+
+			});
+
+			return totalWidth;
 
 		}
 
@@ -282,7 +298,7 @@ var slider = (function() {
 			}, mSeconds);
 
 		}
-		
+
 	}
 
 })();
