@@ -1,64 +1,91 @@
 $(document).ready(function() {
 
-	         var next = $(".next");
-	         var prev = $(".prev");
-	       var listLi = $(".list li");
-	       var infoLi = $(".info li");
-	       var active = $(".list li.active");
-	         var info = $(".info");
-	   var listHolder = $(".list-holder");
-	 var infoLiActive = $(".info li.active");
-	     var switcher = $(".switcher");
-	      var current = $(".switcher li.active");
-	     var mSeconds = 500;
-	  var slideHeight = $(".info li").height();
-	      var isReady = false;
+	          var next = $(".next");
+	          var prev = $(".prev");
+	        var listLi = $(".list li");
+	        var infoLi = $(".info li");
+	        var active = $(".list li.active");
+	          var info = $(".info");
+	    var listHolder = $(".list-holder");
+	  var infoLiActive = $(".info li.active");
+	      var switcher = $(".switcher");
+	       var current = $(".switcher li.active");
+	      var mSeconds = 500;
+	   var slideHeight = $(".info li").height();
+	       var isReady = false;
+var switcherBackground = $(".switcher-background");
+
+	switcherBackground.outerHeight( current.outerHeight() );
+	switcherBackground.outerWidth( current.outerWidth() );
 
 	hideNotActive(listLi);
 	hideNotActive(infoLi);
 
 	listHolder.on("click", function() {
+
 		if (isReady) {
 			return false;
 		}
+
 		isReady = true;
 		switchNextPic();
+		
 	});
 
-	next.on("click", function() {
+	next.on("click", function(event) {
+
+		event.preventDefault();
+
 		if (isReady) {
 			return false;
 		}
+
 		isReady = true;
 		switchNextPic();
+
 	});
 
-	prev.on("click", function() {
+	prev.on("click", function(event) {
+
+		event.preventDefault();
+
 		if (isReady) {
 			return false;
 		}
+
 		isReady = true;
 		switchPrevPic();
+
 	});
 
-	switcher.on("click", "li", function() {
+	switcher.on("click", "a", function(event) {
+
+		event.preventDefault();
+
 		if (isReady) {
 			return false;
 		}
+
 		isReady = true;
 		switchToCurrent.call( $(this) );
+		slideBackroundEffect.call( $(this), ".switcher-background" );
+
 	});
 	
 	//---------functions----------------
 
 	function hideNotActive(arr) {
+
 		$.each(arr, function(i, elem) {
+
 			if ( $(elem).hasClass("active") ) {
 				$(elem).show();
 			} else {
 				$(elem).hide();
 			}
+
 		});
+
 	}
 
 	function switchNextPic() {
@@ -74,7 +101,14 @@ $(document).ready(function() {
 
 			current.removeClass("active");
 			current = $(".switcher li").eq(0).addClass("active");
+
+			$(".switcher-background").animate({
+				left: current.position().left,
+				width: current.outerWidth()
+			}, mSeconds);
+
 			return false;
+
 		}
 
 		active.removeClass("active").fadeOut(mSeconds, function() {
@@ -85,7 +119,13 @@ $(document).ready(function() {
 		current.removeClass("active");
 		current = current.next().addClass("active");
 
+		$(".switcher-background").animate({
+			left: current.position().left,
+			width: current.outerWidth()
+		}, mSeconds);
+
 		return false;
+
 	}
 
 	function slideNext() {
@@ -119,6 +159,7 @@ $(document).ready(function() {
 			marginTop: 0,
 			opacity: 1
 		}, mSeconds);
+
 	}
 
 	function switchPrevPic() {
@@ -134,6 +175,11 @@ $(document).ready(function() {
 			current.removeClass("active");
 			current = $(".switcher li").eq( $(".switcher li").length - 1 ).addClass("active");
 
+			$(".switcher-background").animate({
+				left: current.position().left,
+				width: current.outerWidth()
+			}, mSeconds);
+
 			return false;
 		}
 
@@ -145,7 +191,13 @@ $(document).ready(function() {
 		current.removeClass("active");
 		current = current.prev().addClass("active");
 
+		$(".switcher-background").animate({
+			left: current.position().left,
+			width: current.outerWidth()
+		}, mSeconds);
+
 		return false;
+
 	}
 
 	function slidePrev() {
@@ -180,24 +232,26 @@ $(document).ready(function() {
 			marginTop: 0,
 			opacity: 1
 		}, mSeconds);
+
 	}
 
 	function switchToCurrent() {
 
-		if ( $(this).hasClass("active") ) {
+		if ( $(this).parent().hasClass("active") ) {
 			isReady = false;
 			return false;
 		}
 
 		slideCurrent();
 		current.removeClass("active");
-		current = $(this).addClass("active");
+		current = $(this).parent().addClass("active");
 		active.removeClass("active").fadeOut(mSeconds, function() {
 			active = $(".list li").eq( current.index() ).addClass("active").fadeIn(mSeconds);
 			isReady = false;
 		});
 
 		return false;	
+
 	}
 
 	function slideCurrent() {
@@ -215,5 +269,16 @@ $(document).ready(function() {
 			marginTop: 0,
 			opacity: 1
 		}, mSeconds);
+
 	}
+
+	function slideBackroundEffect(elemToAnimate) {
+
+		$(elemToAnimate).animate({
+			left: $(this).position().left,
+			width: $(this).outerWidth()
+		}, mSeconds);
+
+	}
+
 });

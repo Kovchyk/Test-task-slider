@@ -91,38 +91,31 @@ a:hover {text-decoration: underline;}
 	margin: 0 10px;
 	border-top: 1px solid #ccc;
 	position: relative;
-	text-align: center;
+	height: 100px;
+}
+.switcher-wrapper {
+	margin: 0 auto;
+	width: 35%;
 }
 .switcher {
-	display: inline-block;
 	padding: 11px 0;
+	overflow: hidden;
+	position: absolute;
 }
 .switcher li {
 	float: left;
-	padding: 5px 10px;
 	margin: 0 7px 0 0;
-	border-radius: 4px;
-	transition: background 1s ease-out;
-	-moz-transition: background 1s ease-out;
-	-webkit-transition: background 1s ease-out;
-	-o-transition: background 1s ease-out;
-	-ms-transition: background 1s ease-out;
-}
-.switcher li:hover {
-	border: 1px solid #ccc;
-	padding: 4px 9px;
-}
-.switcher li.active {
-	background: #7e7976;
-}
-.switcher li.active:hover {
-	border: none;
-	padding: 5px 10px;
 }
 .switcher li a {
 	color: #000;
+	display: block;
+	padding: 5px 10px;
+	border-radius: 4px;
 	font-size: 14px;
 	line-height: 16px;
+	z-index: 2;
+	position: relative;
+	transition: border 0.5s ease-out;
 	transition: color 0.5s ease-out;
 	-moz-transition: color 0.5s ease-out;
 	-webkit-transition: color 0.5s ease-out;
@@ -131,9 +124,28 @@ a:hover {text-decoration: underline;}
 }
 .switcher li.active a {
 	color: #fff;
+	border: none;
+	padding: 5px 10px;
+}
+.switcher li.active a:hover {
+	border: none;
+	padding: 5px 10px;
 }
 .switcher li a:hover {
+	border: 1px solid #ccc;
+	padding: 4px 9px;
 	text-decoration: none;
+	
+}
+.switcher-background-holder {
+	width: 100%;
+	padding: 11px 0;
+}
+.switcher-background {
+	z-index: 1;
+	background: #7e7976;
+	border-radius: 4px;
+	position: relative;
 }
 /*-------------------- Left and right buttons ------------*/
 a.prev, a.next {
@@ -142,7 +154,6 @@ a.prev, a.next {
 	width: 28px;
 	height: 28px;
 	color: #ccc;
-	float: left;
 	text-align: center;
 	padding: 4px 0 0;
 	position: absolute;
